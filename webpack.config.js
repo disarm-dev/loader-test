@@ -10,7 +10,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist', version),
-    publicPath: '/dist/',
+    publicPath: `/${version}/`,
     filename: 'build.js'
   },
   module: {
@@ -51,7 +51,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './index.html' },
     ]),
-    new SWPrecacheWebpackPlugin(require('../sw-precache-config.js')),
+    new SWPrecacheWebpackPlugin(require('./sw-precache-config.js')),
     gitRevisionPlugin, // Write VERSION and COMMITHASH files
   ],
   resolve: {
