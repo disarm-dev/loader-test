@@ -1,10 +1,13 @@
 var path = require('path')
 var webpack = require('webpack')
+var GitRevisionPlugin = require('git-revision-webpack-plugin')
+var gitRevisionPlugin = new GitRevisionPlugin()
+var version = gitRevisionPlugin.version().replace('v', '')
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './dist', version),
     publicPath: '/dist/',
     filename: 'build.js'
   },
@@ -39,6 +42,11 @@ module.exports = {
       }
     ]
   },
+  plugins:[
+    new webpack.DefinePlugin({
+      __VERSION_COMMIT_HASH_SHORT: JSON.stringify(version)
+    })
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
