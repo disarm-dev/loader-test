@@ -1,6 +1,7 @@
-const match_semver_cache = /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/ig
+var compareVersions = require('compare-versions');
 
-;(async function () {
+(async () => {
+  const match_semver_cache = /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/ig;
   const body = document.querySelector('body')
   const keys = await caches.keys()
 
@@ -12,7 +13,7 @@ const match_semver_cache = /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?
       }
       return acc
     }, [])
-    .sort()
+    .sort(compareVersions)
     .forEach(version => {
       const el = document.createElement('a')
       el.href = `/${version}/`

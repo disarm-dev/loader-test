@@ -1,11 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
+
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var GitRevisionPlugin = require('git-revision-webpack-plugin')
 var gitRevisionPlugin = new GitRevisionPlugin()
 var version = gitRevisionPlugin.version().replace('v', '')
+var Visualizer = require('webpack-visualizer-plugin');
+
 
 module.exports = [
   {
@@ -26,7 +30,7 @@ module.exports = [
     output: {
       path: path.resolve(__dirname, './dist', version),
       publicPath: `/${version}/`,
-      filename: 'build.js'
+      filename: '[name].js'
     },
     module: {
       rules: [
@@ -44,11 +48,11 @@ module.exports = [
             // other vue-loader options go here
           }
         },
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/
-        },
+        // {
+        //   test: /\.js$/,
+        //   loader: 'babel-loader',
+        //   exclude: /node_modules/
+        // },
         {
           test: /\.(png|jpg|gif|svg)$/,
           loader: 'file-loader',
@@ -67,10 +71,11 @@ module.exports = [
       ]),
       new SWPrecacheWebpackPlugin(require('./sw-precache-config.js')),
       gitRevisionPlugin, // Write VERSION and COMMITHASH files
+      // new Visualizer()
     ],
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.esm.js'
+        'vue$': 'vue/dist/vue.runtime.esm.js'
       },
       extensions: ['*', '.js', '.vue', '.json']
     },
@@ -83,25 +88,24 @@ module.exports = [
       hints: false
     },
     devtool: '#eval-source-map'
-  }]
+  }
+]
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+  for(const md of module.exports) {
+    md.devtool = '#source-map'
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    md.plugins = (md.plugins || []).concat([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"production"'
+        }
+      }),
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          ecma: 6
+        }
+      }),
+    ])
+  }
 }
