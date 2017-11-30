@@ -1,5 +1,5 @@
 module.exports = {
-  filename: 'sw.js',
+  filename: 'loader-sw.js',
   cacheId: 'locational',
   maximumFileSizeToCacheInBytes: 14194304,
   navigateFallback: 'index.html',
