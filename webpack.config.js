@@ -14,7 +14,7 @@ module.exports = [
   {
     entry: './src/loader.js',
     output: {
-      path: path.resolve(__dirname, './dist', 'root'),
+      path: path.resolve(__dirname, './dist', 'all'),
       filename: 'loader.js'
     },
     plugins: [
