@@ -17,6 +17,15 @@ module.exports = [
       path: path.resolve(__dirname, './dist', 'loader'),
       filename: 'loader.js'
     },
+    module: {
+      rules: [
+        {
+          test: /\.html$/,
+          exclude: /node_modules/,
+          use: 'svelte-loader'
+        }
+      ]
+    },
     plugins: [
       new SWPrecacheWebpackPlugin(require('./loader-sw-precache-config.js')),
       new CopyWebpackPlugin([
