@@ -1,15 +1,14 @@
-var path = require('path')
-var webpack = require('webpack')
+const webpack = require('webpack')
+const path = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const GitRevisionPlugin = require('git-revision-webpack-plugin')
+const gitRevisionPlugin = new GitRevisionPlugin()
+const WebpackShellPlugin = require('webpack-shell-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
 
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var GitRevisionPlugin = require('git-revision-webpack-plugin')
-var gitRevisionPlugin = new GitRevisionPlugin()
-var version = gitRevisionPlugin.version().replace('v', '')
-var Visualizer = require('webpack-visualizer-plugin');
-
+const version = gitRevisionPlugin.version().replace('v', '')
 
 module.exports = [
   {
@@ -71,7 +70,8 @@ module.exports = [
       ]),
       new SWPrecacheWebpackPlugin(require('./sw-precache-config.js')),
       gitRevisionPlugin, // Write VERSION and COMMITHASH files
-      // new Visualizer()
+      // new Visualizer(),
+      new WebpackShellPlugin({onBuildEnd:[`ln -sf ./dist/${version} ./dist/latest`]})
     ],
     resolve: {
       alias: {
