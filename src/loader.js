@@ -1,15 +1,23 @@
-console.log('loader')
+const match_semver_cache = /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?\b/ig
 
-const match_semver_cache = new RegExp('(\d+\.\d+\.\d+)(?:\/)?(?:\$\$\$)?$')
-
-(async function () {
+;(async function () {
+  const body = document.querySelector('body')
   const keys = await caches.keys()
-  const versions = keys.map(key => {
-    const matched = match_semver_cache.match(key)
-    console.log('matched', matched)
-    if (matched) {
-      return match[0]
-    }
-  }).filter(i => i)
-  console.log(versions)
+
+  keys
+    .reduce((acc, key) => {
+      const matched = key.match(match_semver_cache)
+      if (matched) {
+        if (!acc.includes(matched[0])) acc.push(matched[0])
+      }
+      return acc
+    }, [])
+    .forEach(version => {
+      const el = document.createElement('a')
+      el.href = `/${version}`
+      el.innerText = version
+      el.style = 'display: block;'
+      body.appendChild(el)
+    })
+
 })()
