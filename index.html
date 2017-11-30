@@ -6,6 +6,12 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        console.log('can work')
+        navigator.serviceWorker.register('sw.js')
+      }
+    </script>
     <script src="build.js"></script>
   </body>
 </html>

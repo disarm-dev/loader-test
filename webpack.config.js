@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 var GitRevisionPlugin = require('git-revision-webpack-plugin')
 var gitRevisionPlugin = new GitRevisionPlugin()
 var version = gitRevisionPlugin.version().replace('v', '')
@@ -51,7 +51,8 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './index.html' },
     ]),
-
+    new SWPrecacheWebpackPlugin(require('../sw-precache-config.js')),
+    gitRevisionPlugin, // Write VERSION and COMMITHASH files
   ],
   resolve: {
     alias: {
