@@ -71,7 +71,7 @@ module.exports = [
       new SWPrecacheWebpackPlugin(require('./sw-precache-config.js')),
       gitRevisionPlugin, // Write VERSION and COMMITHASH files
       // new Visualizer(),
-      new WebpackShellPlugin({onBuildEnd:[`ln -sf ./dist/${version} ./dist/latest`]})
+      new WebpackShellPlugin({onBuildEnd:[`ln -sf ${version} ./dist/latest`]})
     ],
     resolve: {
       alias: {
