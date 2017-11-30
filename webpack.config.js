@@ -1,5 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
+
 var GitRevisionPlugin = require('git-revision-webpack-plugin')
 var gitRevisionPlugin = new GitRevisionPlugin()
 var version = gitRevisionPlugin.version().replace('v', '')
@@ -45,7 +47,11 @@ module.exports = {
   plugins:[
     new webpack.DefinePlugin({
       __VERSION_COMMIT_HASH_SHORT: JSON.stringify(version)
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './index.html' },
+    ]),
+
   ],
   resolve: {
     alias: {
