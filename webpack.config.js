@@ -6,7 +6,7 @@ var GitRevisionPlugin = require('git-revision-webpack-plugin')
 var gitRevisionPlugin = new GitRevisionPlugin()
 var version = gitRevisionPlugin.version().replace('v', '')
 
-module.exports = {
+module.exports = [{
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist', version),
@@ -69,7 +69,7 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map'
-}
+}]
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
