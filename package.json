@@ -1,7 +1,7 @@
 {
   "name": "simple-app",
   "description": "A Simple App",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "author": "Sihle Mbhamali <mbhamalimosaic@gmail.com>",
   "license": "MIT",
   "private": true,
