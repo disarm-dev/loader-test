@@ -1,6 +1,6 @@
 module.exports = {
   filename: 'app-sw.js',
-  cacheId: 'locational',
+  cacheId: 'locational-app',
   maximumFileSizeToCacheInBytes: 14194304,
   navigateFallback: 'index.html',
   staticFileGlobsIgnorePatterns: [
@@ -17,6 +17,5 @@ module.exports = {
       urlPattern: /(api|tiles)\.mapbox\.com/,
       handler: 'cacheFirst'
     }
-  ],
-  skipWaiting: true
+  ]
 }
