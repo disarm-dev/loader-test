@@ -9,7 +9,7 @@ import compareVersions from 'compare-versions'
   try {
     const fetch_version = await fetch('/latest/VERSION')
     latest_version = (await fetch_version.text()).replace('v', '')
-  } catch(e) {
+  } catch (e) {
     console.log('Fetch for latest version failed - offline?')
   }
 
@@ -28,6 +28,7 @@ import compareVersions from 'compare-versions'
     .forEach(version => {
       const el = document.createElement('a')
       el.href = `/${version}/`
+      el.onclick = 'window.location.reload()'
       el.innerText = version
       el.style = 'display: block;'
       body.appendChild(el)
