@@ -28,7 +28,6 @@ import compareVersions from 'compare-versions'
     .forEach(version => {
       const el = document.createElement('a')
       el.href = `/${version}/`
-      el.onclick = 'window.location.reload()'
       el.innerText = version
       el.style = 'display: block;'
       body.appendChild(el)
