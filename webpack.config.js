@@ -15,7 +15,10 @@ module.exports = [
       filename: 'loader.js'
     },
     plugins: [
-      new HtmlWebpackPlugin()
+      new SWPrecacheWebpackPlugin(require('./loader-sw-precache-config.js')),
+      new CopyWebpackPlugin([
+        {from: './loader.html', to: 'index.html'},
+      ]),
     ]
   },
   {

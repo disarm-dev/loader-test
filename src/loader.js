@@ -12,9 +12,10 @@ const match_semver_cache = /\bv?(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?
       }
       return acc
     }, [])
+    .sort()
     .forEach(version => {
       const el = document.createElement('a')
-      el.href = `/${version}`
+      el.href = `/${version}/`
       el.innerText = version
       el.style = 'display: block;'
       body.appendChild(el)
