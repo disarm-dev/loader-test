@@ -66,12 +66,12 @@ module.exports = [
         __VERSION_COMMIT_HASH_SHORT: JSON.stringify(version)
       }),
       new CopyWebpackPlugin([
-        {from: './index.html'},
+        {from: './app.html', to: './index.html'},
       ]),
-      new SWPrecacheWebpackPlugin(require('./sw-precache-config.js')),
+      new SWPrecacheWebpackPlugin(require('./app-sw-precache-config.js')),
       gitRevisionPlugin, // Write VERSION and COMMITHASH files
       // new Visualizer(),
-      new WebpackShellPlugin({onBuildEnd:[`ln -sf ${version} ./dist/latest`]})
+      new WebpackShellPlugin({onBuildEnd:[`ln -sfn ${version} ./dist/latest`]})
     ],
     resolve: {
       alias: {
