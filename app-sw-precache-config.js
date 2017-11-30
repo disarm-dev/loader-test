@@ -4,6 +4,8 @@ module.exports = {
   maximumFileSizeToCacheInBytes: 14194304,
   navigateFallback: 'index.html',
   staticFileGlobsIgnorePatterns: [
+    /.js/,
+    /.html/,
     /\.map$/,
     /VERSION/,
     /COMMITHASH/
