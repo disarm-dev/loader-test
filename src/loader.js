@@ -1,3 +1,13 @@
+// import App from './loader.html'
+//
+// const app = new App({
+//   target: document.querySelector( 'app' ),
+//   data: {
+//     name: 'world'
+//   }
+// });
+
+
 import compareVersions from 'compare-versions'
 
 
