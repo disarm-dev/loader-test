@@ -1,18 +1,1 @@
-# simple-app
-
-> A Simple App
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Simple test app to let us rapidly rebuild multiple versions of an 'app', to test different upgrading and SW strategies.
